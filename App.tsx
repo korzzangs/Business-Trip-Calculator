@@ -88,11 +88,26 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen p-4 md:p-8 flex flex-col items-center bg-gray-50">
-      <header className="w-full max-w-6xl mb-8">
-        <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
-          <span className="text-blue-600">🚗</span> 주행거리 정산 시스템
-        </h1>
-        <p className="text-gray-500 text-sm mt-1">주행 정보와 유종을 입력하면 실시간으로 정산 금액이 계산됩니다.</p>
+      <header className="w-full max-w-6xl mb-8 flex justify-between items-start">
+        <div>
+          <h1 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
+            <span className="text-blue-600">🚗</span> 주행거리 정산 시스템
+          </h1>
+          <p className="text-gray-500 text-sm mt-1">주행 정보와 유종을 입력하면 실시간으로 정산 금액이 계산됩니다.</p>
+        </div>
+        
+        {/* 네이버 길찾기 아이콘 추가 */}
+        <a 
+          href="https://map.naver.com/p/directions/14324454.4509919,4190921.3681565,CTR,13026464,PLACE_POI/-/-/car?c=15.00,0,0,0,dh"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex flex-col items-center group transition-transform hover:scale-105"
+        >
+          <div className="w-10 h-10 bg-[#03C75A] rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-md group-hover:shadow-lg">
+            N
+          </div>
+          <span className="text-[10px] mt-1 text-gray-600 font-bold group-hover:text-green-600">네이버길찾기</span>
+        </a>
       </header>
 
       <main className="w-full max-w-6xl">
