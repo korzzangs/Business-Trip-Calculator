@@ -5,23 +5,14 @@ import { FuelInfo } from '../types';
 interface CriteriaTableProps {
   fuelData: FuelInfo[];
   onUpdate: (id: string, field: 'efficiency' | 'price', value: number) => void;
-  onSave: () => void;
 }
 
-const CriteriaTable: React.FC<CriteriaTableProps> = ({ fuelData, onUpdate, onSave }) => {
+const CriteriaTable: React.FC<CriteriaTableProps> = ({ fuelData, onUpdate }) => {
   return (
     <div className="bg-white rounded-lg shadow-md overflow-hidden border border-gray-200">
       <div className="bg-gray-800 text-white px-4 py-3 font-bold text-sm flex justify-between items-center">
         <span>유종별 정산 기준표</span>
-        <div className="flex items-center gap-2">
-          <span className="text-[10px] font-normal opacity-70">(수정 가능)</span>
-          <button 
-            onClick={onSave}
-            className="bg-blue-600 hover:bg-blue-500 text-white px-2 py-1 rounded text-[10px] transition-colors font-medium"
-          >
-            저장
-          </button>
-        </div>
+        <span className="text-[10px] font-normal opacity-70">(수정 가능)</span>
       </div>
       <table className="w-full text-xs sm:text-sm text-center border-collapse">
         <thead className="bg-gray-100 text-gray-600 uppercase">

@@ -9,20 +9,10 @@ const App: React.FC = () => {
   const [mileage, setMileage] = useState<string>('40');
   const [selectedFuelId, setSelectedFuelId] = useState<string>(FUEL_DATA[0].id);
   
-  // 로컬 스토리지에서 초기 데이터 로드
-  const [fuels, setFuels] = useState<FuelInfo[]>(() => {
-    const saved = localStorage.getItem('fuel_criteria_data');
-    if (saved) {
-      try {
-        return JSON.parse(saved);
-      } catch (e) {
-        return FUEL_DATA;
-      }
-    }
-    return FUEL_DATA;
-  });
+  // 앱 시작 시 항상 기본 데이터(FUEL_DATA)로 초기화 (저장 기능 제거)
+  const [fuels, setFuels] = useState<FuelInfo[]>(FUEL_DATA);
 
-  // 사전품의서 & 지출결의서 초기값 (사용자 요청 양식으로 변경)
+  // 사전품의서 & 지출결의서 초기값
   const defaultRequest = `1. 배경 및 목적
 ㄴ 
 
@@ -75,11 +65,6 @@ const App: React.FC = () => {
     setFuels(prev => prev.map(f => f.id === id ? { ...f, [field]: value } : f));
   };
 
-  const handleSaveFuels = () => {
-    localStorage.setItem('fuel_criteria_data', JSON.stringify(fuels));
-    alert('수정한 기준연비와 유류단가가 저장되었습니다. 이제 앱을 다시 실행해도 이 값이 적용됩니다.');
-  };
-
   const handleCopy = (text: string, title: string) => {
     navigator.clipboard.writeText(text).then(() => {
       alert(`${title} 내용이 복사되었습니다.`);
@@ -96,7 +81,7 @@ const App: React.FC = () => {
           <p className="text-gray-500 text-sm mt-1">주행 정보와 유종을 입력하면 실시간으로 정산 금액이 계산됩니다.</p>
         </div>
         
-        {/* 네이버 길찾기 아이콘 추가 */}
+        {/* 네이버 길찾기 아이콘 */}
         <a 
           href="https://map.naver.com/p/directions/14324454.4509919,4190921.3681565,CTR,13026464,PLACE_POI/-/-/car?c=15.00,0,0,0,dh"
           target="_blank"
@@ -178,7 +163,6 @@ const App: React.FC = () => {
             <CriteriaTable 
               fuelData={fuels} 
               onUpdate={handleUpdateFuel} 
-              onSave={handleSaveFuels} 
             />
             <div className="mt-4 bg-blue-50 border border-blue-100 p-3 rounded-lg text-xs sm:text-sm text-blue-700">
               <div className="font-bold">💡 알림: 정산 금액은 소수점 올림처리</div>
@@ -186,7 +170,7 @@ const App: React.FC = () => {
           </div>
         </div>
 
-        {/* New Sections: 사전품의서 & 지출결의서 */}
+        {/* 사전품의서 & 지출결의서 영역 */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-12 mb-12">
           {/* 1. 사전품의서 */}
           <div className="bg-white rounded-lg shadow-lg border border-gray-200 flex flex-col h-[500px]">
